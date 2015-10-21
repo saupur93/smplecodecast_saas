@@ -6,6 +6,11 @@ class ContractsController < ApplicationController
 	def create
 		@contract = Contract.new(contract_params)
 		if @contract.save
+			name = params[:contract][:name]
+			email = params[:contract][:email]
+			body  = params[:contract][:comments]
+
+			ContactMailer.contact_email(name, email, body).deliver
 			flash[:success] = "Message sent."
 			redirect_to new_contract_path
 		else
