@@ -11,6 +11,7 @@ class ContractsController < ApplicationController
 			body  = params[:contract][:comments]
 
 			ContactMailer.contact_email(name, email, body).deliver
+			
 			flash[:success] = "Message sent."
 			redirect_to new_contract_path
 		else
